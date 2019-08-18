@@ -2,6 +2,8 @@ package com.bala.myapplication.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,27 +16,21 @@ import com.bala.myapplication.ui.adapters.ContactAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
-    private ContactViewModel contactViewModel;
-    private ActivityMainBinding activityMainBinding;
-    private ContactAdapter adapter;
+
+    private ContactListFragment contactListFragment;
+    private FragmentTransaction fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        contactViewModel = ViewModelProviders.of(this).get(ContactViewModel.class);
-        contactViewModel.getContacts().observe(this,new_contacts ->
+        if(savedInstanceState == null)
         {
-            ContactList contacts = new_contacts;
-            Log.d(TAG, "contacts: "+contacts.getTotal_pages());
-            Log.d(TAG, "contacts: "+contacts.getContacts());
-            Log.d(TAG, "contacts: "+contacts.getPage());
-            adapter = new ContactAdapter(contacts.getContacts());
-            activityMainBinding.setContactAdapter(adapter);
-        });
-
+            contactListFragment = new ContactListFragment();
+            fragmentManager = getSupportFragmentManager().beginTransaction();
+            fragmentManager.add(R.id.content_layout,contactListFragment);
+            fragmentManager.commit();
+        }
 
 
     }
