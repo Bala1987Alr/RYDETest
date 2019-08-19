@@ -5,21 +5,26 @@ import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.bala.myapplication.BR;
 import com.bala.myapplication.R;
+import com.bala.myapplication.ui.callback.ContactClickCallback;
 import com.bala.myapplication.model.daos.Contact;
 
 import java.util.List;
 
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder>{
+public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
     private List<Contact> contacts;
-    public ContactAdapter(List<Contact> contacts)
+    private ContactClickCallback contactClickCallback;
+
+
+    public ContactAdapter(List<Contact> contacts,ContactClickCallback contactClickCallback)
     {
         this.contacts = contacts;
+        this.contactClickCallback = contactClickCallback;
+
     }
 
     @NonNull
@@ -44,6 +49,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         return contacts.size();
     }
 
+
     public class ContactViewHolder extends RecyclerView.ViewHolder
     {
         ViewDataBinding binding;
@@ -55,6 +61,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         public void bind(Contact contact)
         {
             this.binding.setVariable(BR.contact,contact);
+            binding.setVariable(BR.callback,contactClickCallback);
             this.binding.executePendingBindings();
         }
     }

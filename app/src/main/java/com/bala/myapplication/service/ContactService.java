@@ -1,8 +1,12 @@
 package com.bala.myapplication.service;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.content.ComponentCallbacks2;
+import android.util.Log;
 
+import com.bala.myapplication.model.daos.Contact;
 import com.bala.myapplication.model.daos.ContactList;
+import com.bala.myapplication.model.daos.SingleContact;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -12,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ContactService {
 
+    private static final String TAG = "ContactService";
     private static ContactService contactService;
     private ContactRepository repository;
 
@@ -54,6 +59,29 @@ public class ContactService {
         });
 
         return contacts;
+    }
+
+    public MutableLiveData<SingleContact> getContact(int id)
+    {
+        MutableLiveData<SingleContact> contact= new MutableLiveData<>();
+
+        repository.getContact(id).enqueue(new Callback<SingleContact>() {
+            @Override
+            public void onResponse(Call<SingleContact> call, Response<SingleContact> response) {
+
+                contact.setValue(response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<SingleContact> call, Throwable t) {
+
+                contact.setValue(null);
+
+            }
+        });
+
+        return contact;
     }
 
 }

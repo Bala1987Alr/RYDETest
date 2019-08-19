@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.bala.myapplication.R;
-import com.bala.myapplication.databinding.ActivityMainBinding;
 import com.bala.myapplication.model.daos.ContactList;
 import com.bala.myapplication.model.viewmodels.ContactViewModel;
 import com.bala.myapplication.ui.adapters.ContactAdapter;

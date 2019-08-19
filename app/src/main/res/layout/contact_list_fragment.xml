@@ -2,10 +2,16 @@
 
 <layout>
     <data>
+        <import type="java.lang.String" />
+        <import type="android.view.View"/>
+        <import type="android.text.TextUtils"/>
         <variable
             name="contactAdapter"
             type="com.bala.myapplication.ui.adapters.ContactAdapter">
         </variable>
+        <variable
+            name="click_listener"
+            type="View.OnClickListener"/>
     </data>
 
 <RelativeLayout
@@ -19,7 +25,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adapter="@{contactAdapter}"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-         />
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/fab"
+        android:onClick="@{click_listener}"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+       />
+
+
 </RelativeLayout>
 </layout>

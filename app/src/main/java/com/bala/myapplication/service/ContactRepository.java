@@ -3,6 +3,7 @@ package com.bala.myapplication.service;
 import com.bala.myapplication.model.daos.Contact;
 import com.bala.myapplication.model.daos.ContactList;
 import com.bala.myapplication.model.daos.NewContactResponse;
+import com.bala.myapplication.model.daos.SingleContact;
 
 import java.util.TreeMap;
 
@@ -19,8 +20,8 @@ public interface ContactRepository {
     @GET("users")
     Call<ContactList> getContactList(@Query("page")  int page);
 
-    @GET("users")
-    Call<Contact> getContact(@Path("id") int id);
+    @GET("users/{id}")
+    Call<SingleContact> getContact(@Path("id") int id);
 
     @POST("users")
     Call<NewContactResponse> addContact(TreeMap<String,String> treeMap);
